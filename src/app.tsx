@@ -1,14 +1,50 @@
 import "./index.css";
+import { useState } from "preact/hooks";
+import TextEditor from "./components/Editor";
 
 export function App() {
+  const [userName, setUserName] = useState<string>("");
+
+  if (typeof window !== "undefined") {
+    window.onmessage = (event) => {
+      const { type, userName } = event.data.pluginMessage;
+
+      if (type === "set-user-info") {
+        setUserName(userName);
+      }
+    };
+  }
+
   return (
     <div
       className={
-        "h-full border border-red-200 p-4 flex flex-col justify-between"
+        "h-full p-4 flex flex-col justify-between text-sm text-gray-700"
       }
     >
-      <p>Subtitle</p>
-      <p>sdf</p>
+      <div class="w-full">
+        <input
+          class="w-full text-xl font-bold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700"
+          placeholder="Title of this Note"
+        />
+        <TextEditor />
+      </div>
+
+      <div className="flex gap-1 items-center">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="#FBDFB1"
+          class="size-7"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+            clip-rule="evenodd"
+          />
+        </svg>
+
+        <span>{userName}</span>
+      </div>
     </div>
   );
 }

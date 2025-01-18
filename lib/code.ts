@@ -12,3 +12,19 @@ figma.showUI(__html__, {
 figma.ui.onmessage = () => {
   figma.closePlugin();
 };
+
+const currentUser = figma.currentUser;
+
+if (currentUser) {
+  figma.ui.postMessage({
+    type: "set-user-info",
+    userName: currentUser.name,
+    userHandle: currentUser.handle,
+  });
+} else {
+  figma.ui.postMessage({
+    type: "set-user-info",
+    userName: "Unknown User",
+    userHandle: "N/A",
+  });
+}
