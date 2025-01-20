@@ -7,12 +7,7 @@ const currentUser = figma.currentUser;
 const formattedDate = moment().format("ddd, D MMM YYYY");
 
 // Retrieve saved note from Figma's shared plugin data
-const savedNote = figma.root.getSharedPluginData(
-  "notePlugin", // The plugin namespace
-  "documentNote", // The key for storing the note
-);
-
-const parsedSavedNote = JSON.parse(savedNote);
+const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
 
 // Load the plugin UI
 figma.showUI(__html__, {
@@ -25,19 +20,21 @@ figma.showUI(__html__, {
 // Send the saved note to the UI
 figma.ui.postMessage({
   type: "load-note",
-  body: savedNote ? parsedSavedNote : { title: "", note: "" },
+  body: savedNote ? JSON.parse(savedNote) : { title: "", note: "" },
 });
 
 // Listen for messages from the UI
 figma.ui.onmessage = (message) => {
   const { type, payload } = message;
-  const newPayload = { ...payload, userName: payload.userName || currentUser };
+  // const newPayload = payload.userName
+  //   ? payload
+  //   : { ...payload, userName: currentUser };
 
   if (type === "save-note") {
     figma.root.setSharedPluginData(
       "notePlugin",
       "documentNote",
-      JSON.stringify(newPayload),
+      JSON.stringify(payload),
     );
   }
 
@@ -49,9 +46,5 @@ figma.ui.onmessage = (message) => {
 // Send user info to the UI
 figma.ui.postMessage({
   type: "set-user-info",
-  body: parsedSavedNote?.userName
-    ? parsedSavedNote?.userName
-    : currentUser
-      ? currentUser.name
-      : "N/A",
+  body: currentUser ? currentUser.name : "N/A",
 });

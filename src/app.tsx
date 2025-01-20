@@ -22,6 +22,7 @@ export function App() {
   }
 
   const saveToBackend = (payload: { title?: string; note?: string }) => {
+    console.log(payload);
     window.parent.postMessage(
       { pluginMessage: { type: "save-note", payload } },
       "*",
