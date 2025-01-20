@@ -2,7 +2,7 @@ import Quill from "quill";
 import "quill/dist/quill.bubble.css";
 import { useEffect, useRef } from "preact/hooks";
 
-const TextEditor = () => {
+const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
   const editorRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -19,7 +19,18 @@ const TextEditor = () => {
         },
       });
 
+      // quill.setText(note);
+      console.log(note);
+      // quill.clipboard.dangerouslyPasteHTML(0, note, 'api');
+      quill.clipboard.dangerouslyPasteHTML(0, note, "api");
+
+      quill.on("text-change", () => {
+        const editorVal = editorRef?.current?.children[0].innerHTML;
+        onChange("note", editorVal);
+      });
+
       return () => {
+        quill.off("text-change");
         if ("destroy" in quill) {
           (quill as any).destroy();
         }
@@ -31,7 +42,8 @@ const TextEditor = () => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !placeholder-gray-400 !h-[100px] !border-0 text-gray-500"
+      // dangerouslySetInnerHTML={note ? (note as any) : undefined}
+      className="w-full focus:outline-none !placeholder-gray-400 !border-0 text-gray-500"
     />
   );
 };
