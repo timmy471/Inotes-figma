@@ -4,15 +4,15 @@ import { useState } from "preact/hooks";
 import TextEditor from "./components/Editor";
 
 export function App() {
-  const [userName, setUserName] = useState<string>("");
-  const [info, setInfo] = useState({ title: "", note: "" });
+  const [initialUser, setInitialUser] = useState<string>("");
+  const [info, setInfo] = useState({ title: "", note: "", userName: "" });
 
   if (typeof window !== "undefined") {
     window.onmessage = (event) => {
       const { type, body } = event.data.pluginMessage;
 
       if (type === "set-user-info") {
-        setUserName(body);
+        setInitialUser(body);
       }
 
       if (type === "load-note") {
@@ -22,7 +22,6 @@ export function App() {
   }
 
   const saveToBackend = (payload: { title?: string; note?: string }) => {
-    console.log(payload);
     window.parent.postMessage(
       { pluginMessage: { type: "save-note", payload } },
       "*",
@@ -32,6 +31,9 @@ export function App() {
   const handleChange = (name: string, value: string) => {
     setInfo((prev) => {
       const newInfo = { ...prev, [name]: value };
+      if (!newInfo.userName) {
+        newInfo.userName = initialUser;
+      }
       saveToBackend(newInfo);
       return newInfo;
     });
@@ -55,7 +57,7 @@ export function App() {
         <TextEditor note={info.note} onChange={handleChange} />
       </div>
 
-      <User userName={userName} />
+      <User userName={info.userName} />
     </div>
   );
 }

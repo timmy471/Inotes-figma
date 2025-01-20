@@ -20,7 +20,9 @@ figma.showUI(__html__, {
 // Send the saved note to the UI
 figma.ui.postMessage({
   type: "load-note",
-  body: savedNote ? JSON.parse(savedNote) : { title: "", note: "" },
+  body: savedNote
+    ? JSON.parse(savedNote)
+    : { title: "", note: "", user: currentUser },
 });
 
 // Listen for messages from the UI
