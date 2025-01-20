@@ -57,7 +57,7 @@ export function App() {
         <TextEditor note={info.note} onChange={handleChange} />
       </div>
 
-      <User userName={info.userName} />
+      <User userName={info.userName || initialUser} />
     </div>
   );
 }
