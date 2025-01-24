@@ -42,12 +42,12 @@ export function App() {
   return (
     <div
       className={
-        "h-full p-4 flex flex-col justify-between text-sm text-gray-700"
+        "h-full p-4 flex flex-col justify-between text-sm text-[#0A0D14]"
       }
     >
       <div class="w-full">
         <input
-          class="w-full text-xl font-bold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700"
+          class="w-full text-xl focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700 placeholder:text-[#CDD0D5] placeholder:font-normal placeholder:text-xl"
           placeholder="Title of this Note"
           value={info.title}
           onChange={(e: Event) => {

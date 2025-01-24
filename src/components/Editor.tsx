@@ -10,13 +10,19 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
   useEffect(() => {
     if (editorRef.current) {
       const quill = new Quill(editorRef.current, {
-        placeholder: "Enter Note here...",
+        placeholder: "Add a subtitle to this note",
         theme: "bubble",
         modules: {
           toolbar: [
-            [{ header: "1" }, { header: "2" }],
+            [
+              { bold: true },
+              { underline: true },
+              { italic: true },
+              { strike: true },
+            ],
             [{ list: "ordered" }],
-            [{ bold: true }, { underline: true }],
+            [{ color: [] }, { background: [] }],
+            ["link"],
           ],
         },
       });
@@ -45,7 +51,7 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !placeholder-gray-400 !border-0 text-gray-500"
+      className="w-full focus:outline-none !placeholder-[#CDD0D5] !border-0 text-[#525866] -tracking-[0.02]"
     />
   );
 };
