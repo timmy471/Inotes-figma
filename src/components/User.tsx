@@ -4,7 +4,7 @@ const User = ({ userName }: { userName: string }) => {
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="#FBDFB1"
+        fill="1E1E1E"
         class="size-7"
       >
         <path
