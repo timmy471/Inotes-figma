@@ -1,11 +1,11 @@
 const User = ({ userName }: { userName: string }) => {
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex gap-1 items-center ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
         fill="1E1E1E"
-        class="size-7"
+        class="size-6"
       >
         <path
           fill-rule="evenodd"
@@ -14,7 +14,7 @@ const User = ({ userName }: { userName: string }) => {
         />
       </svg>
 
-      <span>{userName}</span>
+      <span className="-tracking-[0.02] text-[#0A0D14]">{userName}</span>
     </div>
   );
 };

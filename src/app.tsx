@@ -42,7 +42,7 @@ export function App() {
   return (
     <div
       className={
-        "h-full p-4 flex flex-col justify-between text-sm text-[#0A0D14]"
+        "h-full p-4 flex flex-col justify-between text-sm text-[#0A0D14] relative"
       }
     >
       <div class="w-full">
@@ -57,7 +57,9 @@ export function App() {
         <TextEditor note={info.note} onChange={handleChange} />
       </div>
 
-      <User userName={info.userName || initialUser} />
+      <div className="sticky bottom-0 bg-white py-1.5">
+        <User userName={info.userName || initialUser} />
+      </div>
     </div>
   );
 }

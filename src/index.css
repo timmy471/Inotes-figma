@@ -5,4 +5,17 @@
 .ql-editor {
   padding-left: 0 !important;
   padding-right: 0 !important;
+  font-family: Inter !important;
+}
+
+.ql-editor::before {
+  left: 0 !important;
+  font-family: Inter !important;
+  text-align: left;
+  font-style: normal !important;
+  color: #CDD0D5 !important;
+}
+
+.ql-editor li {
+  padding-left: 0px !important;
 }
