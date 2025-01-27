@@ -7,7 +7,7 @@
     "vite:dev": "vite",
     "dev": "vite build --watch && chokidar \"lib/**/*.ts\" -c \"npm run build:main\"",
     "build": "tsc -b && vite build && npm run build:main",
-    "build:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js",
+    "build:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js --minify",
     "preview": "vite preview",
     "watch:ts": "tsc --watch",
     "watch:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js --watch",
