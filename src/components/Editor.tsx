@@ -19,10 +19,11 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
               { underline: true },
               { italic: true },
               { strike: true },
+              { list: "ordered" },
+              { color: [] },
+              { background: [] },
+              "link",
             ],
-            [{ list: "ordered" }],
-            [{ color: [] }, { background: [] }],
-            ["link"],
           ],
         },
       });
@@ -51,7 +52,7 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !placeholder-[#CDD0D5] !border-0 text-[#525866] -tracking-[0.02]"
+      className="w-full focus:outline-none !placeholder-[#CDD0D5] !placeholder:text-left !border-0 text-[#525866] -tracking-[0.02]  !not-italic"
     />
   );
 };

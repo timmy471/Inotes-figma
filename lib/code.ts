@@ -11,8 +11,8 @@ const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
 
 // Load the plugin UI
 figma.showUI(__html__, {
-  width: 350,
-  height: 300,
+  width: 280,
+  height: 200,
   // title: formattedDate,
   // themeColors: true,
 });
