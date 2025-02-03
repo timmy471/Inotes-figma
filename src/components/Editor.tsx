@@ -15,14 +15,14 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
         modules: {
           toolbar: [
             [
-              { header: "1" },
-              { header: "2" },
-              { list: "ordered" },
               { bold: true },
+              { underline: true },
+              { italic: true },
+              { strike: true },
+              { list: "ordered" },
               { color: [] },
               { background: [] },
-              { underline: true },
-              { link: "" },
+              "link",
             ],
           ],
         },

@@ -7,7 +7,7 @@
     "vite:dev": "vite",
     "dev": "vite build --watch && chokidar \"lib/**/*.ts\" -c \"npm run build:main\"",
     "build": "tsc -b && vite build && npm run build:main",
-    "build:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js",
+    "build:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js --minify",
     "preview": "vite preview",
     "watch:ts": "tsc --watch",
     "watch:main": "esbuild lib/code.ts --bundle --outfile=dist/code.js --watch",
@@ -19,6 +19,7 @@
     "quill": "^2.0.3"
   },
   "devDependencies": {
+    "2": "^3.0.0",
     "@figma/plugin-typings": "^1.107.0-beta.1",
     "@preact/preset-vite": "^2.9.3",
     "@types/aos": "^3.0.7",
