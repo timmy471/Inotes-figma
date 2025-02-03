@@ -5,23 +5,24 @@ import TextEditor from "./components/Editor";
 
 export function App() {
   const [initialUser, setInitialUser] = useState<string>("");
-  const [info, setInfo] = useState({ title: "", note: "", userName: "" });
+  const [note, setNote] = useState({ title: "", body: "", userName: "" });
 
   if (typeof window !== "undefined") {
     window.onmessage = (event) => {
-      const { type, body } = event.data.pluginMessage;
+      console.log(event.data.pluginMessage);
+      const { type, payload } = event.data.pluginMessage;
 
       if (type === "set-user-info") {
-        setInitialUser(body);
+        setInitialUser(payload);
       }
 
       if (type === "load-note") {
-        setInfo(body);
+        setNote(payload);
       }
     };
   }
 
-  const saveToBackend = (payload: { title?: string; note?: string }) => {
+  const saveToBackend = (payload: { title?: string; body?: string }) => {
     window.parent.postMessage(
       { pluginMessage: { type: "save-note", payload } },
       "*",
@@ -29,13 +30,13 @@ export function App() {
   };
 
   const handleChange = (name: string, value: string) => {
-    setInfo((prev) => {
-      const newInfo = { ...prev, [name]: value };
-      if (!newInfo.userName) {
-        newInfo.userName = initialUser;
+    setNote((prev) => {
+      const newNote = { ...prev, [name]: value };
+      if (!newNote.userName) {
+        newNote.userName = initialUser;
       }
-      saveToBackend(newInfo);
-      return newInfo;
+      saveToBackend(newNote);
+      return newNote;
     });
   };
 
@@ -49,15 +50,15 @@ export function App() {
         <input
           class="w-full text-xl font-bold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700"
           placeholder="Title of this Note"
-          value={info.title}
+          value={note.title}
           onChange={(e: Event) => {
             handleChange("title", (e.target as HTMLInputElement).value);
           }}
         />
-        <TextEditor note={info.note} onChange={handleChange} />
+        <TextEditor body={note.body} onChange={handleChange} />
       </div>
 
-      <User userName={info.userName || initialUser} />
+      <User userName={note.userName || initialUser} />
     </div>
   );
 }

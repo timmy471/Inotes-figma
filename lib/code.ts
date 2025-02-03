@@ -11,18 +11,17 @@ const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
 
 // Load the plugin UI
 figma.showUI(__html__, {
-  width: 350,
-  height: 300,
-  title: formattedDate,
+  width: 280,
+  height: 200,
   // themeColors: true,
 });
 
 // Send the saved note to the UI
 figma.ui.postMessage({
   type: "load-note",
-  body: savedNote
+  payload: savedNote
     ? JSON.parse(savedNote)
-    : { title: "", note: "", user: currentUser },
+    : { title: "", body: "", user: currentUser },
 });
 
 // Listen for messages from the UI
@@ -48,5 +47,5 @@ figma.ui.onmessage = (message) => {
 // Send user info to the UI
 figma.ui.postMessage({
   type: "set-user-info",
-  body: currentUser ? currentUser.name : "N/A",
+  payload: currentUser ? currentUser.name : "N/A",
 });
