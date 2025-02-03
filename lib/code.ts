@@ -4,13 +4,13 @@ import moment from "moment";
 
 // Get current user and format the date
 const currentUser = figma.currentUser;
-const formattedDate = moment().format("h:mmA | Do MMM, YYYY");
+const formattedDate = moment().format("Do MMM, YYYY | h:mma");
 
 // Retrieve saved note from Figma's shared plugin data
 const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
 // const savedNoteToObj = JSON.parse(savedNote);
 // if (!savedNoteToObj.user) {
-//   figma.root.setSharedPluginData("notePlugin", "documentNote", "");
+// figma.root.setSharedPluginData("notePlugin", "documentNote", "");
 // }
 
 // Load the plugin UI
@@ -26,13 +26,12 @@ figma.ui.postMessage({
   payload: savedNote
     ? JSON.parse(savedNote)
     : {
-        title: "",
-        body: "",
-        createdAt: formattedDate,
-        user: { name: currentUser.name, photoUrl: currentUser.photoUrl },
-      },
+      title: "",
+      body: "",
+      createdAt: formattedDate,
+      user: { name: currentUser!.name, photoUrl: currentUser!.photoUrl },
+    },
 });
-
 // Listen for messages from the UI
 figma.ui.onmessage = (message) => {
   const { type, payload } = message;

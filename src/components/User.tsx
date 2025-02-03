@@ -20,8 +20,12 @@ const User = ({
         />
       </svg>
       <div className="flex flex-col gap-1 text-[10px]">
-        <span className="text-gray-700 username leading-none">{userName}</span>
-        <span className="text-gray-400 leading-none">{createdAt}</span>
+        <span className="text-[#0A0D14]  username leading-none">
+          {userName}
+        </span>
+        <span className="text-[#0A0D14] username leading-none">
+          {createdAt}
+        </span>
       </div>
     </div>
   );

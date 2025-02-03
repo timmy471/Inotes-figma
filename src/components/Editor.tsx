@@ -14,9 +14,16 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
         theme: "bubble",
         modules: {
           toolbar: [
-            [{ header: "1" }, { header: "2" }],
-            [{ list: "ordered" }],
-            [{ bold: true }, { underline: true }],
+            [
+              { header: "1" },
+              { header: "2" },
+              { list: "ordered" },
+              { bold: true },
+              { color: [] },
+              { background: [] },
+              { underline: true },
+              { link: "" },
+            ],
           ],
         },
       });
@@ -45,7 +52,7 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !border-0 text-gray-500"
+      className="w-full focus:outline-none !border-0 text-[#525866] placeholder:text-[#CDD0D5]"
     />
   );
 };
