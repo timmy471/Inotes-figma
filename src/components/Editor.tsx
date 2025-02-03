@@ -45,7 +45,7 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !placeholder-gray-400 !border-0 text-gray-500"
+      className="w-full focus:outline-none !border-0 text-gray-500"
     />
   );
 };

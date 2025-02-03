@@ -1,11 +1,17 @@
-const User = ({ userName }: { userName: string }) => {
+const User = ({
+  userName,
+  createdAt,
+}: {
+  userName: string;
+  createdAt: string;
+}) => {
   return (
     <div className="flex gap-1 items-center">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
-        fill="#FBDFB1"
-        class="size-7"
+        fill="#E2E4E9"
+        class="size-8"
       >
         <path
           fill-rule="evenodd"
@@ -13,8 +19,10 @@ const User = ({ userName }: { userName: string }) => {
           clip-rule="evenodd"
         />
       </svg>
-
-      <span>{userName}</span>
+      <div className="flex flex-col gap-1 text-[10px]">
+        <span className="text-gray-700 username leading-none">{userName}</span>
+        <span className="text-gray-400 leading-none">{createdAt}</span>
+      </div>
     </div>
   );
 };

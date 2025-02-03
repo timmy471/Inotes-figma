@@ -1,20 +1,20 @@
 import "./index.css";
+import { INote } from "./types";
 import User from "./components/User";
 import { useState } from "preact/hooks";
 import TextEditor from "./components/Editor";
 
 export function App() {
-  const [initialUser, setInitialUser] = useState<string>("");
-  const [note, setNote] = useState({ title: "", body: "", userName: "" });
+  const [note, setNote] = useState<INote>({
+    title: "",
+    body: "",
+    createdAt: "",
+    user: { name: "", photoUrl: "" },
+  });
 
   if (typeof window !== "undefined") {
     window.onmessage = (event) => {
-      console.log(event.data.pluginMessage);
       const { type, payload } = event.data.pluginMessage;
-
-      if (type === "set-user-info") {
-        setInitialUser(payload);
-      }
 
       if (type === "load-note") {
         setNote(payload);
@@ -32,9 +32,6 @@ export function App() {
   const handleChange = (name: string, value: string) => {
     setNote((prev) => {
       const newNote = { ...prev, [name]: value };
-      if (!newNote.userName) {
-        newNote.userName = initialUser;
-      }
       saveToBackend(newNote);
       return newNote;
     });
@@ -48,7 +45,7 @@ export function App() {
     >
       <div class="w-full">
         <input
-          class="w-full text-xl font-bold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700"
+          class="bg-none bg-transparent w-full text-lg font-semibold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] "
           placeholder="Title of this Note"
           value={note.title}
           onChange={(e: Event) => {
@@ -58,7 +55,7 @@ export function App() {
         <TextEditor body={note.body} onChange={handleChange} />
       </div>
 
-      <User userName={note.userName || initialUser} />
+      <User userName={note.user.name} createdAt={note.createdAt} />
     </div>
   );
 }
