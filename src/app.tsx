@@ -40,22 +40,23 @@ export function App() {
   return (
     <div
       className={
-        "h-full p-4 flex flex-col justify-between text-sm text-gray-700"
+        "h-full flex flex-col justify-between text-sm text-[#CDD0D5] relative"
       }
     >
-      <div class="w-full">
+      <div class="w-full p-4 ">
         <input
-          class="bg-none bg-transparent w-full text-lg font-semibold focus:outline-none placeholder-gray-300 resize-none min-h-[20px] "
+          class="bg-none bg-transparent w-full text-xl text-[#0A0D14] focus:outline-none placeholder-[#CDD0D5] resize-none min-h-[20px] "
           placeholder="Title of this Note"
           value={note.title}
-          onChange={(e: Event) => {
+          onChange={(e: any) => {
             handleChange("title", (e.target as HTMLInputElement).value);
           }}
         />
         <TextEditor body={note.body} onChange={handleChange} />
       </div>
-
-      <User userName={note.user.name} createdAt={note.createdAt} />
+      <div className="sticky bottom-0 bg-white py-1.5 px-4 user">
+        <User userName={note.user.name} createdAt={note.createdAt} />
+      </div>
     </div>
   );
 }

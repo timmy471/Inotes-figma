@@ -6,7 +6,7 @@ const User = ({
   createdAt: string;
 }) => {
   return (
-    <div className="flex gap-1 items-center">
+    <div className="flex gap-1 items-center ">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -19,9 +19,13 @@ const User = ({
           clip-rule="evenodd"
         />
       </svg>
-      <div className="flex flex-col gap-1 text-[10px]">
-        <span className="text-gray-700 username leading-none">{userName}</span>
-        <span className="text-gray-400 leading-none">{createdAt}</span>
+ <div className="flex flex-col gap-1 text-[10px]">
+        <span className="text-[#0A0D14]  username leading-none">
+          {userName}
+        </span>
+        <span className="text-[#0A0D14] username leading-none">
+          {createdAt}
+        </span>
       </div>
     </div>
   );
