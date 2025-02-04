@@ -1,27 +1,28 @@
 import "./index.css";
+import { INote } from "./types";
 import User from "./components/User";
 import { useState } from "preact/hooks";
 import TextEditor from "./components/Editor";
 
 export function App() {
-  const [initialUser, setInitialUser] = useState<string>("");
-  const [info, setInfo] = useState({ title: "", note: "", userName: "" });
+  const [note, setNote] = useState<INote>({
+    title: "",
+    body: "",
+    createdAt: "",
+    user: { name: "", photoUrl: "" },
+  });
 
   if (typeof window !== "undefined") {
     window.onmessage = (event) => {
-      const { type, body } = event.data.pluginMessage;
-
-      if (type === "set-user-info") {
-        setInitialUser(body);
-      }
+      const { type, payload } = event.data.pluginMessage;
 
       if (type === "load-note") {
-        setInfo(body);
+        setNote(payload);
       }
     };
   }
 
-  const saveToBackend = (payload: { title?: string; note?: string }) => {
+  const saveToBackend = (payload: { title?: string; body?: string }) => {
     window.parent.postMessage(
       { pluginMessage: { type: "save-note", payload } },
       "*",
@@ -29,36 +30,32 @@ export function App() {
   };
 
   const handleChange = (name: string, value: string) => {
-    setInfo((prev) => {
-      const newInfo = { ...prev, [name]: value };
-      if (!newInfo.userName) {
-        newInfo.userName = initialUser;
-      }
-      saveToBackend(newInfo);
-      return newInfo;
+    setNote((prev) => {
+      const newNote = { ...prev, [name]: value };
+      saveToBackend(newNote);
+      return newNote;
     });
   };
 
   return (
     <div
       className={
-        "h-full p-4 flex flex-col justify-between text-sm text-[#0A0D14] relative"
+        "h-full flex flex-col justify-between text-sm text-[#CDD0D5] relative"
       }
     >
-      <div class="w-full">
+      <div class="w-full p-4 ">
         <input
-          class="w-full text-xl focus:outline-none placeholder-gray-300 resize-none min-h-[20px] text-gray-700 placeholder:text-[#CDD0D5] placeholder:font-normal placeholder:text-xl"
+          class="bg-none bg-transparent w-full text-xl text-[#0A0D14] focus:outline-none placeholder-[#CDD0D5] resize-none min-h-[20px] "
           placeholder="Title of this Note"
-          value={info.title}
-          onChange={(e: Event) => {
+          value={note.title}
+          onChange={(e: any) => {
             handleChange("title", (e.target as HTMLInputElement).value);
           }}
         />
-        <TextEditor note={info.note} onChange={handleChange} />
+        <TextEditor body={note.body} onChange={handleChange} />
       </div>
-
-      <div className="sticky bottom-0 bg-white py-1.5">
-        <User userName={info.userName || initialUser} />
+      <div className="sticky bottom-0 bg-white py-1.5 px-4 user">
+        <User userName={note.user.name} createdAt={note.createdAt} />
       </div>
     </div>
   );

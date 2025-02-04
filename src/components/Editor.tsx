@@ -3,14 +3,14 @@ import "quill/dist/quill.bubble.css";
 import { useState } from "preact/hooks";
 import { useEffect, useRef } from "preact/hooks";
 
-const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
+const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const [newNote, setNewNote] = useState<string>(note);
+  const [newBody, setNewBody] = useState<string>(body);
 
   useEffect(() => {
     if (editorRef.current) {
       const quill = new Quill(editorRef.current, {
-        placeholder: "Add a subtitle to this note",
+        placeholder: "What's on you mind?",
         theme: "bubble",
         modules: {
           toolbar: [
@@ -28,11 +28,11 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
         },
       });
 
-      quill.clipboard.dangerouslyPasteHTML(0, newNote);
+      quill.clipboard.dangerouslyPasteHTML(0, newBody);
 
       quill.on("text-change", () => {
         const editorVal = editorRef?.current?.children[0].innerHTML;
-        onChange("note", editorVal);
+        onChange("body", editorVal);
       });
 
       return () => {
@@ -42,17 +42,17 @@ const TextEditor = ({ note, onChange }: { note: string; onChange: any }) => {
         }
       };
     }
-  }, [newNote]);
+  }, [newBody]);
 
   useEffect(() => {
-    if (!newNote) setNewNote(note);
-  }, [note]);
+    if (!newBody) setNewBody(body);
+  }, [body]);
 
   return (
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !placeholder-[#CDD0D5] !placeholder:text-left !border-0 text-[#525866] -tracking-[0.02]  !not-italic"
+      className="w-full focus:outline-none !border-0 text-[#525866] placeholder:text-[#CDD0D5]"
     />
   );
 };
