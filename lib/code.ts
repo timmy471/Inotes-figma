@@ -1,22 +1,17 @@
 /// <reference types="@figma/plugin-typings" />
-
-import moment from "moment";
+import { formatDate } from '../src/helpers'
 
 // Get current user and format the date
 const currentUser = figma.currentUser;
-const formattedDate = moment().format("Do MMM, YYYY | h:mma");
 
 // Retrieve saved note from Figma's shared plugin data
 const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
-// const savedNoteToObj = JSON.parse(savedNote);
-// if (!savedNoteToObj.user) {
-// figma.root.setSharedPluginData("notePlugin", "documentNote", "");
-// }
+const formattedDate = formatDate(new Date());
 
 // Load the plugin UI
 figma.showUI(__html__, {
-  width: 280,
-  height: 200,
+  width: 300,
+  height: 250,
   themeColors: true,
 });
 

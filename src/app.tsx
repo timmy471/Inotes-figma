@@ -45,7 +45,7 @@ export function App() {
     >
       <div class="w-full p-4 ">
         <input
-          class="bg-none bg-transparent w-full text-xl text-[#0A0D14] focus:outline-none placeholder-[#CDD0D5] resize-none min-h-[20px] "
+          class="bg-none bg-transparent w-full text-sm text-[#525866] focus:outline-none placeholder-[#CDD0D5] resize-none min-h-[20px] "
           placeholder="Title of this Note"
           value={note.title}
           onChange={(e: any) => {
@@ -54,7 +54,7 @@ export function App() {
         />
         <TextEditor body={note.body} onChange={handleChange} />
       </div>
-      <div className="sticky bottom-0 bg-white py-1.5 px-4 user">
+      <div className="sticky bottom-0 bg-white py-3 px-4 user">
         <User userName={note.user.name} createdAt={note.createdAt} />
       </div>
     </div>
