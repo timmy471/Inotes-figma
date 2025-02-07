@@ -1,22 +1,41 @@
 /// <reference types="@figma/plugin-typings" />
 
-import moment from "moment";
 
 // Get current user and format the date
 const currentUser = figma.currentUser;
-const formattedDate = moment().format("Do MMM, YYYY | h:mma");
+
 
 // Retrieve saved note from Figma's shared plugin data
 const savedNote = figma.root.getSharedPluginData("notePlugin", "documentNote");
 // const savedNoteToObj = JSON.parse(savedNote);
 // if (!savedNoteToObj.user) {
-// figma.root.setSharedPluginData("notePlugin", "documentNote", "");
+//   figma.root.setSharedPluginData("notePlugin", "documentNote", "");
 // }
+
+const formatDate = (date: Date) => {
+  const months = [
+    "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+    "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+  ];
+
+  const day = date.getDate();
+  const month = months[date.getMonth()];
+  const year = date.getFullYear();
+
+  let hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+  const ampm = hours >= 12 ? "PM" : "AM";
+  hours = hours % 12 || 12; // Convert to 12-hour format
+
+  return `${day} ${month} ${year}, ${hours}:${minutes}${ampm}`;
+};
+
+const formattedDate = formatDate(new Date());
 
 // Load the plugin UI
 figma.showUI(__html__, {
-  width: 280,
-  height: 200,
+  width: 300,
+  height: 250,
   themeColors: true,
 });
 

@@ -30,6 +30,25 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
 
       quill.clipboard.dangerouslyPasteHTML(0, newBody);
 
+      quill.clipboard.addMatcher(Node.ELEMENT_NODE, (_node, delta) => {
+        delta.ops = delta.ops.map((op) => {
+          if (op.attributes) {
+            // Remove inline color styles
+            delete op.attributes.color;
+            // Remove background styles
+            delete op.attributes.background;
+            // Remove bold if coming from the copied text
+            delete op.attributes.bold;
+            // Remove italic if copied
+            delete op.attributes.italic;
+            // Remove underline if copied
+            delete op.attributes.underline;
+          }
+          return op;
+        });
+        return delta;
+      });
+
       quill.on("text-change", () => {
         const editorVal = editorRef?.current?.children[0].innerHTML;
         onChange("body", editorVal);
@@ -52,7 +71,7 @@ const TextEditor = ({ body, onChange }: { body: string; onChange: any }) => {
     <div
       ref={editorRef}
       id="editor"
-      className="w-full focus:outline-none !border-0 text-[#525866] placeholder:text-[#CDD0D5]"
+      className="w-full focus:outline-none !border-0 text-[#868C98] placeholder:text-[#CDD0D5]"
     />
   );
 };
