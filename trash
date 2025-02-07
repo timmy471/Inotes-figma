@@ -1,0 +1,4 @@
+// const savedNoteToObj = JSON.parse(savedNote);
+// if (!savedNoteToObj.user) {
+//   figma.root.setSharedPluginData("notePlugin", "documentNote", "");
+// }
