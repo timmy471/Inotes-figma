@@ -6,6 +6,12 @@
 .ql-editor {
   padding: 0 !important;
   font-family: Inter !important;
+  color: #868C98 !important;
+  font-size: 12px !important;
+}
+
+.ql-editor::placeholder {
+  font-size: 12px !important;
 }
 
 .ql-editor::before {
@@ -29,7 +35,7 @@
 }
 
 .figma-dark .ql-editor {
-  color: #CDD0D5;
+  color: #868C98;
 }
 
 .figma-light input::placeholder {
@@ -43,6 +49,10 @@
 
 .figma-dark .username {
   color: #CDD0D5;
+}
+
+.figma-dark .usertime {
+  color: #868C98;
 }
 
 .figma-dark .user {

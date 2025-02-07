@@ -19,11 +19,11 @@ const User = ({
           clip-rule="evenodd"
         />
       </svg>
- <div className="flex flex-col gap-1 text-[10px]">
+      <div className="flex flex-col gap-1 text-[10px]">
         <span className="text-[#0A0D14]  username leading-none">
           {userName}
         </span>
-        <span className="text-[#0A0D14] username leading-none">
+        <span className="text-[#CDD0D5] usertime leading-none">
           {createdAt}
         </span>
       </div>
